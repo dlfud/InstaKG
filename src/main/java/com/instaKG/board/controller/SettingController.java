@@ -21,7 +21,7 @@ public class SettingController {
     public String delete(@PathVariable("id") Long id){
         Board board = this.boardService.getBoard(id);
         this.boardService.delete(board);
-        return "redirect:/board/post";
+        return "redirect:/board/list";
     }
 
 

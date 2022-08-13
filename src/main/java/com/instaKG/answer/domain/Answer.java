@@ -20,6 +20,9 @@ public class Answer {
 
     private LocalDateTime createDate;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Boolean replyLike;
+
     @ManyToOne
     private Board board;
 

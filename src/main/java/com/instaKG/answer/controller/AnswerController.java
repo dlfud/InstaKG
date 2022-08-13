@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
@@ -48,5 +49,11 @@ public class AnswerController {
         Answer answer = this.answerService.getAnswer(id);
         this.answerService.delete(answer);
         return String.format("redirect:/board/detail/%s", answer.getBoard().getId());
+    }
+
+    @PostMapping("/list/like/{id}")
+    public String answerLike(@PathVariable("id") Long id){
+        this.answerService.setReplyLike(id);
+        return "redirect:/board/list";
     }
 }

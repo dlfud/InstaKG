@@ -29,10 +29,21 @@ public class AnswerService {
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
         answer.setBoard(board);
+        answer.setReplyLike(false);
         this.answerRepository.save(answer);
     }
 
     public void delete(Answer answer){
         this.answerRepository.delete(answer);
+    }
+
+    public void setReplyLike(Long answerId){
+        Answer answer = answerRepository.findById(answerId).get();
+        if(answer.getReplyLike() == true){
+            answer.setReplyLike(false);
+        }else{
+            answer.setReplyLike(true);
+        }
+        this.answerRepository.save(answer);
     }
 }

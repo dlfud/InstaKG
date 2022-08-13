@@ -258,27 +258,54 @@
 
                                         </div>
                                         <!--댓글막기 유무-->
-                                        <div th:if="!${board.onOff}">
-                                            <!-- <div class="ms-2">사용자1님 외 123,456명이 좋아합니다.</div>-->
-                                            <span class="text-muted" th:if="${#lists.size(board.answerList)}!=0">
+                                        <!-- <div class="ms-2">사용자1님 외 123,456명이 좋아합니다.</div>-->
+                                        <span class="text-muted" th:if="${#lists.size(board.answerList)}!=0">
                                             <a class="Modal-Nomal ms-3"
                                                th:href="@{|/board/list/detail/${board.id}|}"
                                                th:text="|${#lists.size(board.answerList)}개의 답변 모두 보기|"></a>
                                             </span>
-                                            <span th:if="${#lists.size(board.answerList)}==0"></span>
-                                            <!-- 댓글 샘플 시작 -->
-                                            <div class="d-flex ps-3 pe-3 pb-1"
-                                                 th:each="answer, index : ${board.answerList}">
-                                                <spanp th:if="${index.index} == 0">
+                                        <span th:if="${#lists.size(board.answerList)}==0"></span>
+                                        <!-- 댓글 샘플 시작 -->
+                                        <div class="d-flex ps-3 pe-3 pb-1"
+                                             th:each="answer, index : ${board.answerList}">
+                                            <spanp th:if="${index.index} == 0">
+                                                <div>
                                                     <strong>김씨</strong>
                                                     <spanp class="text-muted" th:text="${answer.content}"></spanp>
-                                                </spanp>
-                                            </div>
-                                            <!-- 댓글 샘플 끝 -->
-                                            <!-- 답글 단지 지난시간체크 써도되고 안써도됨-->
-
-                                            <!-- 답글 단지 지난시간체크 끝 써도되고 안써도됨-->
+                                                </div>
+                                                <div>
+                                                    <form th:action="@{|/answer/list/like/${answer.id}|}"
+                                                          method="post">
+                                                        <div th:if="${answer.replyLike}">
+                                                            <button class="btn p-0">
+                                                                <svg type="submit" xmlns="http://www.w3.org/2000/svg"
+                                                                     width="0.8em"
+                                                                     height="0.8em" fill="currentColor"
+                                                                     class="bi bi-star-fill"
+                                                                     viewBox="0 0 16 16">
+                                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                        <div th:if="!${answer.replyLike}">
+                                                            <button class="btn p-0">
+                                                                <svg type="submit" xmlns="http://www.w3.org/2000/svg"
+                                                                     width="0.8em"
+                                                                     height="0.8em"
+                                                                     fill="currentColor" class="bi bi-star"
+                                                                     viewBox="0 0 16 16">
+                                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </spanp>
                                         </div>
+                                        <!-- 댓글 샘플 끝 -->
+                                        <!-- 답글 단지 지난시간체크 써도되고 안써도됨-->
+
+                                        <!-- 답글 단지 지난시간체크 끝 써도되고 안써도됨-->
                                         <div class="ms-2">
                                             <div class="text-muted ms-2 mb-2"
                                                  th:text="${#temporals.format(board.createDate, 'M월 d일')}"></div>
@@ -287,15 +314,17 @@
                                     <div class="position-relative comment-box">
                                         <div th:if="!${board.onOff}">
                                             <form th:action="@{|/answer/create/${board.id}|}" method="post">
-                                                <input name="content" class="w-100 border-0 p-2" type="text"
+                                                <input name="content" class="w-100 border-0 p-2" type="text" id="content"
                                                        placeholder="답글달기">
-                                                <button type="submit" class="btn position-absolute btn-st fw-bold">확인
+                                                <button type="submit" class="btn position-absolute btn-st fw-bold" disabled="true" id="post">확인
                                                 </button>
                                             </form>
                                         </div>
                                         <div th:if="${board.onOff}">
                                             <input name="content" class="w-100 border-0 p-2" type="text"
                                                    placeholder="답글달기" disabled>
+                                            <button type="submit" class="btn position-absolute btn-st fw-bold" disabled>확인
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -604,6 +633,16 @@ function move(url){
     location.href = url+sessionStorage.getItem("board_id");
     sessionStorage.removeItem("board_id");
 }
+
+//댓글 입력창에 값이 들어가 있을때만 버튼 활성화
+$(function(){
+    $("#content").on('input', function(){
+        if($("#content").val()=='')
+            $("#post").attr("disabled", true);
+        else
+            $("#post").attr("disabled", false);
+    });
+})
 
 
 
