@@ -21,7 +21,7 @@ public class FilesController {
 
     @GetMapping("/multi-file")
     public String showMultiForm(){
-        return "/board_form";
+        return "board_form";
     }
 
     @PostMapping("/multi-file")
@@ -33,8 +33,8 @@ public class FilesController {
         try{
             filesService.upload(boardForm, multiFileList);
         }catch(Exception e){
-            boardService.create(boardForm.getTitle(), boardForm.getContent());
+            boardService.create(boardForm.getContent());
         }
-        return "redirect:/board/post";
+        return "redirect:/board/list";
     }
 }

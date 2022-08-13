@@ -26,10 +26,10 @@ public class AnswerController {
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
             model.addAttribute("board", board);
-            return "/post";
+            return "board";
         }
         this.answerService.create(board, answerForm.getContent());
-        return "redirect:/board/post";
+        return "redirect:/board/list";
     }
 
     @RequestMapping("/create/detail/{id}")
@@ -37,16 +37,16 @@ public class AnswerController {
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
             model.addAttribute("board", board);
-            return "/post";
+            return "board_detail";
         }
         this.answerService.create(board, answerForm.getContent());
-        return String.format("redirect:/board/post/detail/%s", id);
+        return String.format("redirect:/board/detail/%s", id);
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteAnswer(Model model, @PathVariable("id") Long id){
         Answer answer = this.answerService.getAnswer(id);
         this.answerService.delete(answer);
-        return String.format("redirect:/board/post/detail/%s", answer.getBoard().getId());
+        return String.format("redirect:/board/detail/%s", answer.getBoard().getId());
     }
 }

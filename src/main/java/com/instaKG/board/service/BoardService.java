@@ -5,15 +5,10 @@ import com.instaKG.board.domain.Board;
 import com.instaKG.files.domain.Files;
 import com.instaKG.util.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,21 +31,25 @@ public class BoardService {
         }
     }
 
-    public Board create(String title, String content){
+    public Board create(String content){
         Board board = new Board();
-        board.setTitle(title);
         board.setContent(content);
         board.setCreateDate(LocalDateTime.now());
         board.setModifyDate(LocalDateTime.now());
+        board.setReplyLike(false);
         this.boardRepository.save(board);
         return board;
     }
 
-    public Page<Board> getList(int page){
-        List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return this.boardRepository.findAll(pageable);
+    public void setLike(Long boardId){
+        Board board = boardRepository.findById(boardId).get();
+
+        if(board.getReplyLike() == true){
+            board.setReplyLike(false);
+        }else{
+            board.setReplyLike(true);
+        }
+        this.boardRepository.save(board);
     }
 
     public void delete(Board board){
@@ -61,8 +60,7 @@ public class BoardService {
         this.boardRepository.delete(board);
     }
 
-    public void modify(Board board, String title, String content, Boolean onOff){
-        board.setTitle(title);
+    public void modify(Board board, String content, Boolean onOff){
         board.setContent(content);
         board.setModifyDate(LocalDateTime.now());
         board.setOnOff(onOff);

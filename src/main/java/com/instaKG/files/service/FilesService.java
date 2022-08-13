@@ -58,7 +58,7 @@ public class FilesService {
     }
 
     private void uploadDB(List<Map<String, String>> fileList, BoardForm boardForm) {
-        Board board = boardService.create(boardForm.getTitle(), boardForm.getContent());
+        Board board = boardService.create(boardForm.getContent());
 
         for(Map<String, String> file : fileList){
             Files files = new Files();

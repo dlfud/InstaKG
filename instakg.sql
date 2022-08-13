@@ -13,13 +13,13 @@ CREATE TABLE board (
 );
 
 
-CREATE TABLE reply (
+CREATE TABLE answer (
     id INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     content TEXT NOT NULL,
     create_date DATETIME NOT NULL DEFAULT NOW(),
     modify_date DATETIME DEFAULT NOW(),
     board_id INT(11) UNSIGNED NOT NULL,
-    reply_like VARCHAR(10) NOT NULL
+    reply_like TINYINT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE files(
@@ -30,6 +30,6 @@ CREATE TABLE files(
 
 
 
-SELECT * FROM Question;
+SELECT * FROM board;
 SELECT * FROM Answer;
 SELECT * FROM files;

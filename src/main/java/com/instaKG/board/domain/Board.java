@@ -17,9 +17,6 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 200)
-    private String title;
-
     @Column(columnDefinition = "TEXT")
     private String content;
 
@@ -29,9 +26,25 @@ public class Board {
 
     private Boolean onOff;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Boolean replyLike;
+
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Files> fileList;
+
+    @Converter
+    class BooleanToYNConverter implements AttributeConverter<Boolean, String> {
+        @Override
+        public String convertToDatabaseColumn(Boolean attribute) {
+            return (attribute != null && attribute) ? "Y" : "N";
+        }
+
+        @Override
+        public Boolean convertToEntityAttribute(String dbData) {
+            return "Y".equals(dbData);
+        }
+    }
 }

@@ -28,7 +28,6 @@ public class SettingController {
     @GetMapping("/modify/{id}")
     public String modify(Model model, @PathVariable("id") Long id, BoardForm boardForm){
         Board board = this.boardService.getBoard(id);
-        boardForm.setTitle(boardForm.getTitle());
         boardForm.setContent(boardForm.getContent());
         model.addAttribute("board", board);
         return "/modify";
@@ -41,9 +40,8 @@ public class SettingController {
             model.addAttribute("board", board);
             return "/modify";
         }
-        this.boardService.modify(board, boardForm.getTitle(), boardForm.getContent(), onOff);
+        this.boardService.modify(board, boardForm.getContent(), onOff);
         return "redirect:/board/post";
     }
-
 
 }

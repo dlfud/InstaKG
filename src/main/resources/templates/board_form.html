@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
+<div layout:fragment="content">
+
+    <section class="main">
+        <!-- 상단 네비바 내용물 관련 -->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container justify-content-center">
+                    <div class="d-flex flex-row justify-content-between align-items-center col-9">
+                        <!-- InstaKG 로고 들어갈 부분 조절 가능-->
+                        <a class="navbar-brand" th:href="@{/question/list}">InstaKG
+                            <!-- <img th:src="@{img/MainLogo2.png}" alt="InstaKG" loading="lazy"> -->
+                        </a>
+                        <div>
+                            <!-- 검색 -->
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="search" aria-label="search">
+                            </form>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <!-- 아이콘 리스트 -->
+                            <ui class="list-inline m-0">
+                                <!-- 집(홈) 아이콘-->
+                                <li class="list-inline-item">
+                                    <a href="#" class="link-dark">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5em"
+                                             fill="currentColor"
+                                             class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                                        </svg>
+                                    </a>
+                                </li>
+
+                                <!-- DM 아이콘 -->
+                                <li class="list-inline-item ms-2">
+                                    <a href="#" class="link-dark">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5em"
+                                             fill="currentColor"
+                                             class="bi bi-send" viewBox="0 0 16 16">
+                                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <!-- 나침반 아이콘 -->
+                                <li class="list-inline-item ms-2">
+                                    <a href="#" class="link-dark">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5em"
+                                             fill="currentColor"
+                                             class="bi bi-compass" viewBox="0 0 16 16">
+                                            <path d="M8 16.016a7.5 7.5 0 0 0 1.962-14.74A1 1 0 0 0 9 0H7a1 1 0 0 0-.962 1.276A7.5 7.5 0 0 0 8 16.016zm6.5-7.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                                            <path d="m6.94 7.44 4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <!-- 사람 아이콘-->
+                                <li class="list-inline-item ms-2">
+                                    <a href="#" class="link-dark">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5em"
+                                             fill="currentColor"
+                                             class="bi bi-person-circle" viewBox="0 0 16 16">
+                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle ms-2">
+                                    <a href="#">
+                                        <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center topbar-profile-photo">
+                                            <!-- 상단바 프로필사진 -->
+                                            <img th:src="@{/img/basic-profile-image.png}"
+                                                 style="transform: scale(1.5); width: 100%; position: absolute; left: 0"/>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ui>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- 상단바 네비바 내용물 관련 끝 -->
+
+        <!-- 상단 친구목록? 내용물 관련 -->
+        <div class="mt-4"> <!-- 네비바와 거리띄우기 -->
+            <div class="container d-flex justify-content-center">
+                <div class="col-9">
+                    <form th:action="@{/multi-file}" enctype="multipart/form-data" th:object="${boardForm}"
+                          method="post">
+                        <div th:replace="form_errors :: formErrorsFragment"></div>
+                        <div class="mb-3">
+                            <strong for="content" class="form-label">내용</strong>
+                            <textarea th:field="*{content}" name="content" class="form-control"
+                                      placeholder="내용"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <strong for="file" class="form-label">사진/영상</strong>
+                            <input multiple="multiple" name="multiFile" type="file" class="form-control" id="btnAtt">
+                            <div id='att_zone' data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하세요'></div>
+                        </div>
+                        <button type="submit" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                 class="bi bi-check2" viewBox="0 0 16 16">
+                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- 게시물 관련 끝-->
+
+        <script layout:fragment="script" type='text/javascript'>
+    (imageView = function imageView(att_zone, btn){
+            var attZone = document.getElementById(att_zone);
+            var btnAtt = document.getElementById(btn);
+            var sel_files = [];
+
+            // 이미지와 체크 박스를 감싸고 있는 div 속성
+            var div_style = 'display:inline-block;position:relative;'
+                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+            // 미리보기 이미지 속성
+            var img_style = 'width:100%;height:100%;z-index:none';
+            // 이미지안에 표시되는 체크박스의 속성
+            var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
+                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+
+            btnAtt.onchange = function(e){
+                var files = e.target.files;
+                var fileArr = Array.prototype.slice.call(files);
+                for(f of fileArr){
+                    imageLoader(f);
+                }
+            }
+
+            // 탐색기에서 드래그앤 드롭 사용
+            attZone.addEventListener('dragenter', function(e){
+              e.preventDefault();
+              e.stopPropagation();
+            }, false);
+            attZone.addEventListener('dragover', function(e){
+              e.preventDefault();
+              e.stopPropagation();
+            }, false);
+            attZone.addEventListener('drop', function(e){
+              var files = {};
+              e.preventDefault();
+              e.stopPropagation();
+              var dt = e.dataTransfer;
+              files = dt.files;
+              for(f of files){
+                imageLoader(f);
+              }
+            }, false);
+            /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+            imageLoader = function(file){
+              sel_files.push(file);
+              var reader = new FileReader();
+              reader.onload = function(ee){
+                let img = document.createElement('img');
+                img.setAttribute('style', img_style);
+                img.src = ee.target.result;
+                attZone.appendChild(makeDiv(img, file));
+              }
+              reader.readAsDataURL(file);
+            }
+            /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+            makeDiv = function(img, file){
+              var div = document.createElement('div');
+              div.setAttribute('style', div_style)
+              var btn = document.createElement('input');
+              btn.setAttribute('type', 'button');
+              btn.setAttribute('value', 'x');
+              btn.setAttribute('delFile', file.name);
+              btn.setAttribute('style', chk_style);
+              btn.onclick = function(ev){
+                var ele = ev.srcElement;
+                var delFile = ele.getAttribute('delFile');
+                for(var i=0 ;i<sel_files.length; i++){
+                  if(delFile== sel_files[i].name){
+                    sel_files.splice(i, 1);
+                  }
+                }
+                dt = new DataTransfer();
+                for(f in sel_files) {
+                  var file = sel_files[f];
+                  dt.items.add(file);
+                }
+                btnAtt.files = dt.files;
+                var p = ele.parentNode;
+                attZone.removeChild(p);
+              }
+              div.appendChild(img);
+              div.appendChild(btn);
+              return div
+            }
+          }
+        )('att_zone', 'btnAtt');
+
+
+
+
+
+</script>
+</html>

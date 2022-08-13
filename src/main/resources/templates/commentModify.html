@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+    <div class="wrapper">
+        <div class="left-col">
+            <div class="info">
+                <div class="user">
+                    <div class="profile-pic"><img src="/images/icon-kakao.PNG" alt=""></div>
+                    <p class="username">modern_web_channel</p>
+                </div>
+            </div>
+            <form th:action="@{|/comment/modify/${answer.id}|}" method="post">
+                <p class="description">
+                    <label for="content" class="form-label">Comment</label>
+                    <textarea name="content" class="form-control" rows="10"
+                              th:text="${answer.content}"></textarea>
+                </p>
+                <p class="post-time">
+                <div th:text="${#temporals.format(answer.modifyDate, 'yyyy년 M월 d일 HH시 ')}"></div>
+                </p>
+                <input type="submit" value="저장하기" class="comment-btn">
+                <a th:href="@{|/board/list|}" class="comment-btn">취소</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</html>
