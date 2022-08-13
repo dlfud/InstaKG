@@ -262,8 +262,8 @@
                                             <!-- <div class="ms-2">사용자1님 외 123,456명이 좋아합니다.</div>-->
                                             <span class="text-muted" th:if="${#lists.size(board.answerList)}!=0">
                                             <a class="Modal-Nomal ms-3"
-                                              th:href="@{|/board/list/detail/${board.id}|}"
-                                              th:text="|${#lists.size(board.answerList)}개의 답변 모두 보기|"></a>
+                                               th:href="@{|/board/list/detail/${board.id}|}"
+                                               th:text="|${#lists.size(board.answerList)}개의 답변 모두 보기|"></a>
                                             </span>
                                             <span th:if="${#lists.size(board.answerList)}==0"></span>
                                             <!-- 댓글 샘플 시작 -->
@@ -294,12 +294,8 @@
                                             </form>
                                         </div>
                                         <div th:if="${board.onOff}">
-                                            <form th:action="@{|/board/create/${board.id}|}" method="post">
-                                                <input name="content" class="w-100 border-0 p-2" type="text"
-                                                       placeholder="답글달기" disabled>
-                                                <button type="submit" class="btn position-absolute btn-st fw-bold">확인
-                                                </button>
-                                            </form>
+                                            <input name="content" class="w-100 border-0 p-2" type="text"
+                                                   placeholder="답글달기" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -561,24 +557,23 @@ function shareTwitter(){
 
 //카톡 공유
  try {
- /*<![CDATA[*/
-  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc');
   function sendLinkDefault() {
-    var sendUrl = document.URL;
+    var sendUrl = window.document.location.href + "detail/" + sessionStorage.getItem("board_id");
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
-        title: '',
+        title: sessionStorage.getItem("board_title"),
         description: sessionStorage.getItem("board_content"),
         imageUrl:
-          'https://cdn.discordapp.com/attachments/993375184193077272/1004543162099966042/MainLogo.png',
+          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
         link: {
           mobileWebUrl: sendUrl,
           webUrl: sendUrl,
         },
       },
       social: {
-        likeCount: 28000000006,
+        likeCount: 286,
         commentCount: 45,
         sharedCount: 845,
       },
@@ -593,7 +588,7 @@ function shareTwitter(){
       ],
     })
   }
-; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
+; window.kakaoDemoCallback && window.kakaoDemoCallback() }
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
 
 
@@ -609,6 +604,7 @@ function move(url){
     location.href = url+sessionStorage.getItem("board_id");
     sessionStorage.removeItem("board_id");
 }
+
 
 
 

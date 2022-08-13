@@ -89,7 +89,7 @@
                         <div class="col-8 p-0">
                             <!--게시물 관련 시작-->
                             <!-- 사용자 정보 시작-->
-                            <div class="d-flex flex-column mb-4" th:each="question : ${question}">
+                            <div class="d-flex flex-column mb-4" th:each="board : ${board}">
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="d-flex flex-row align-items-center justify-content-between">
@@ -111,13 +111,13 @@
                                     <div class="card-body p-0">
                                         <div class="swiper mySwiper">
                                             <div class="swiper-wrapper">
-                                                <div class="swiper-slide" th:each="image : ${question.fileList}">
-                                                    <img th:if="${image.filename.contains('jpg')}"
+                                                <div class="swiper-slide" th:each="image : ${board.fileList}">
+                                                    <img th:if="${image.fileName.contains('jpg')}"
                                                          class="ratio ratio-1x1"
-                                                         th:src="'/uploadFiles/'+${image.filename}" alt="img">
-                                                    <video th:unless="${image.filename.contains('jpg')}"
+                                                         th:src="'/uploadFiles/'+${image.fileName}" alt="img">
+                                                    <video th:unless="${image.fileName.contains('jpg')}"
                                                            class="ratio ratio-1x1" controls
-                                                           th:src="'/uploadFiles/'+${image.filename}"></video>
+                                                           th:src="'/uploadFiles/'+${image.fileName}"></video>
                                                 </div>
                                             </div>
                                             <div class="swiper-button-next"></div>
@@ -139,8 +139,8 @@
                             <!--내용 시작-->
                             <div class="bg-light text-dark">
                                 <div class="card-body">
-                                    <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div>
-                                    <div th:text="${#temporals.format(question.createDate, 'M월 d일')}"></div>
+                                    <div class="card-text" style="white-space: pre-line;" th:text="${board.content}"></div>
+                                    <div th:text="${#temporals.format(board.createDate, 'M월 d일')}"></div>
                                 </div>
                             </div>
                             <!--내용 끝-->

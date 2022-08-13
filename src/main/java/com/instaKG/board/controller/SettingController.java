@@ -41,7 +41,7 @@ public class SettingController {
             return "/modify";
         }
         this.boardService.modify(board, boardForm.getContent(), onOff);
-        return "redirect:/board/post";
+        return "redirect:/board/list";
     }
 
 }
