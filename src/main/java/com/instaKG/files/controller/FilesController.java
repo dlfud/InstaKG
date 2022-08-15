@@ -2,13 +2,12 @@ package com.instaKG.files.controller;
 
 import com.instaKG.board.BoardForm;
 import com.instaKG.board.service.BoardService;
+import com.instaKG.files.domain.Files;
 import com.instaKG.files.service.FilesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -38,4 +37,10 @@ public class FilesController {
         return "redirect:/board/list";
     }
 
+    @RequestMapping("/modify/delete/{id}")
+    public String modifyDelete(@PathVariable("id") Long id){
+        Files files = this.filesService.getFiles(id);
+        this.filesService.delete(files);
+        return String.format("redirect:/setting/modify/%s", files.getBoard().getId());
+    }
 }

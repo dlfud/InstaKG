@@ -42,7 +42,6 @@ public class SettingController {
             @PathVariable("id") Long id,
             @RequestParam(value="onOff", required = false) Boolean onOff,
             @Valid BoardForm boardForm, BindingResult bindingResult
-//            @RequestParam List<Long> filesId
             ){
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
@@ -50,10 +49,6 @@ public class SettingController {
             return "/modify";
         }
         this.boardService.modify(board, boardForm.getContent(), onOff);
-//        for(Long fileId : filesId){
-//            Files files = this.filesService.getFiles(fileId);
-//            this.filesService.delete(files);
-//        }
         return "redirect:/board/list";
     }
 
