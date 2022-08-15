@@ -3,6 +3,7 @@ package com.instaKG.board.controller;
 import com.instaKG.board.BoardForm;
 import com.instaKG.board.domain.Board;
 import com.instaKG.board.service.BoardService;
+import com.instaKG.files.service.FilesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class SettingController {
     private final BoardService boardService;
+
+    private final FilesService filesService;
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id){
@@ -34,13 +37,23 @@ public class SettingController {
     }
 
     @PostMapping("/modify/{id}")
-    public String modify(Model model, @PathVariable("id") Long id, @RequestParam(value="onOff", required = false) Boolean onOff, @Valid BoardForm boardForm, BindingResult bindingResult){
+    public String modify(
+            Model model,
+            @PathVariable("id") Long id,
+            @RequestParam(value="onOff", required = false) Boolean onOff,
+            @Valid BoardForm boardForm, BindingResult bindingResult
+//            @RequestParam List<Long> filesId
+            ){
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
             model.addAttribute("board", board);
             return "/modify";
         }
         this.boardService.modify(board, boardForm.getContent(), onOff);
+//        for(Long fileId : filesId){
+//            Files files = this.filesService.getFiles(fileId);
+//            this.filesService.delete(files);
+//        }
         return "redirect:/board/list";
     }
 

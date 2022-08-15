@@ -93,79 +93,82 @@
         </div>
         <!-- 상단바 네비바 내용물 관련 끝 -->
 
-        <!-- 상단 친구목록? 내용물 관련 -->
-        <div class="mt-4"> <!-- 네비바와 거리띄우기 -->
-            <div class="container d-flex justify-content-center">
-                <div class="col-9">
-                    <div class="row">
-                        <div class="col-8">
 
-                            <!-- 게시물 관련 시작-->
-                            <div class="d-flex flex-column mb-4" th:each="board : ${board}">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="d-flex flex-row align-items-center justify-content-between">
-                                            <div class="d-flex align-items-center ms-2">
-                                                <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center border border-danger post-profile-photo me-3">
-                                                    <!-- 게시물 프로필사진 -->
-                                                    <img th:src="@{/img/basic-profile-image.png}"
-                                                         style="transform: scale(1.5); width: 100%; position: absolute; left: 0"/>
-                                                </div>
-                                                <div class="d-flex justify-content-start">
-                                                    <span class="fw-bold">꼬솜우비</span>
+        <form th:action="@{|/setting/modify/${board.id}|}" method="post">
+            <!-- 상단 친구목록? 내용물 관련 -->
+            <div class="mt-4"> <!-- 네비바와 거리띄우기 -->
+                <div class="container d-flex justify-content-center">
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-8">
+
+                                <!-- 게시물 관련 시작-->
+                                <div class="d-flex flex-column mb-4" th:each="board : ${board}">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center ms-2">
+                                                    <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center border border-danger post-profile-photo me-3">
+                                                        <!-- 게시물 프로필사진 -->
+                                                        <img th:src="@{/img/basic-profile-image.png}"
+                                                             style="transform: scale(1.5); width: 100%; position: absolute; left: 0"/>
+                                                    </div>
+                                                    <div class="d-flex justify-content-start">
+                                                        <span class="fw-bold">꼬솜우비</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="ps-3 pe-3 pt-3 pb-1">
-                                    </div>
-
-                                    <!-- 게시물 이미지 시작-->
-                                    <div class="card-body p-0">
-                                        <div class="swiper mySwiper">
-                                            <div class="swiper-wrapper">
-                                                <div class="swiper-slide" th:each="image : ${board.fileList}">
-                                                    <form>
-                                                        <button type="submit">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                                 fill="currentColor" class="bi bi-x-square"
-                                                                 viewBox="0 0 16 16">
-                                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                    <img th:if="${image.fileName.contains('jpg')}"
-                                                         class="ratio ratio-1x1"
-                                                         th:src="'/uploadFiles/'+${image.fileName}" alt="img">
-                                                    <video th:unless="${image.fileName.contains('jpg')}"
-                                                           class="ratio ratio-1x1" controls
-                                                           th:src="'/uploadFiles/'+${image.fileName}"></video>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-button-next"></div>
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div>
-                                        </div>
-                                        <!-- 게시물 이미지 시작 끝-->
-                                        <!-- 게시물 이미지 밑 아이콘 시작-->
                                         <div class="ps-3 pe-3 pt-3 pb-1">
-
                                         </div>
-                                        <!-- 게시물 이미지 밑 아이콘 끝-->
 
-                                        <div class="d-flex ps-3 pe-3 pb-1">
+                                        <!-- 게시물 이미지 시작-->
+                                        <div class="card-body p-0">
+                                            <div class="swiper mySwiper">
+                                                <div class="swiper-wrapper">
+                                                    <div class="swiper-slide" th:each="image : ${board.fileList}">
+                                                        <span th:if="${#lists.size(board.fileList)}>1">
+                                                            <button class="btn" th:text="${image.id}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                     height="16"
+                                                                     fill="currentColor" class="bi bi-x-square"
+                                                                     viewBox="0 0 16 16">
+                                                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </span>
+                                                        <img th:if="${image.fileName.contains('jpg')}"
+                                                             class="ratio ratio-1x1"
+                                                             th:src="'/uploadFiles/'+${image.fileName}" alt="img">
+                                                        <video th:unless="${image.fileName.contains('jpg')}"
+                                                               class="ratio ratio-1x1" controls
+                                                               th:src="'/uploadFiles/'+${image.fileName}"></video>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-button-next"></div>
+                                                <div class="swiper-button-prev"></div>
+                                                <div class="swiper-pagination"></div>
+                                            </div>
+                                            <!-- 게시물 이미지 시작 끝-->
+                                            <!-- 게시물 이미지 밑 아이콘 시작-->
+                                            <div class="ps-3 pe-3 pt-3 pb-1">
+
+                                            </div>
+                                            <!-- 게시물 이미지 밑 아이콘 끝-->
+
+                                            <div class="d-flex ps-3 pe-3 pb-1">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- 게시물 관련 끝-->
+                            <!-- 게시물 관련 끝-->
 
-                        <!-- 오른쪽 -->
-                        <!-- 오른쪽 내용 변경 시작-->
-                        <div class="col-4">
-                            <form th:action="@{|/setting/modify/${board.id}|}" method="post">
+                            <!-- 오른쪽 -->
+                            <!-- 오른쪽 내용 변경 시작-->
+                            <div class="col-4">
+
                                 <p class="description card-header">
                                     <strong for="content" class="form-label ps-2">내용</strong>
                                     <textarea name="content" class="form-control" rows="12"
@@ -193,13 +196,14 @@
                                         <a th:href="@{|/board/list|}" class="btn text-info">취소</a>
                                     </div>
                                 </div>
-                            </form>
-                            <!-- 댓글막기, 저장, 취소 끝 -->
+
+                                <!-- 댓글막기, 저장, 취소 끝 -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </section>
 </div>
 <script layout:fragment="script" type='text/javascript'>
@@ -215,8 +219,6 @@
           prevEl: ".swiper-button-prev",
         },
       });
-
-
 
 
 

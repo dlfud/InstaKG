@@ -67,4 +67,15 @@ public class FilesService {
             filesRepository.save(files);
         }
     }
+
+    public Files getFiles(Long id){
+        Files files = this.filesRepository.findById(id).get();
+        return files;
+    }
+
+    public void delete(Files files){
+        String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploadFiles";
+        new File(root + "\\" + files.getFileName()).delete();
+        this.filesRepository.delete(files);
+    }
 }

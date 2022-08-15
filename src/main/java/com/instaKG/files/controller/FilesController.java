@@ -37,4 +37,5 @@ public class FilesController {
         }
         return "redirect:/board/list";
     }
+
 }
