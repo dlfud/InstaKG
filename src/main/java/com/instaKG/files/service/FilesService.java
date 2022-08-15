@@ -68,6 +68,14 @@ public class FilesService {
         }
     }
 
+    public void backup(){
+        String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\backup";
+        File fileCheck = new File(root);
+        if (!fileCheck.exists()) fileCheck.mkdirs();
+
+
+    }
+
     public Files getFiles(Long id){
         Files files = this.filesRepository.findById(id).get();
         return files;
