@@ -68,12 +68,19 @@ public class FilesService {
         }
     }
 
-    public void backup(){
+    public void backup(Files files){
+        String originRoot = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploadFiles";
+
         String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\backup";
         File fileCheck = new File(root);
         if (!fileCheck.exists()) fileCheck.mkdirs();
 
-
+//        try {
+//            File backupFile = new File(root + "\\" + files.getFileName());
+//            multipartFile.transferTo(backupFile);
+//        }catch(IllegalStateException | IOException e){
+//            e.printStackTrace();
+//        }
     }
 
     public Files getFiles(Long id){
@@ -82,6 +89,7 @@ public class FilesService {
     }
 
     public void delete(Files files){
+//        backup(files);
         String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploadFiles";
         new File(root + "\\" + files.getFileName()).delete();
         this.filesRepository.delete(files);
