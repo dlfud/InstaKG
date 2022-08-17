@@ -121,7 +121,7 @@
                                 <div th:text="${#temporals.format(answer.modifyDate, 'yyyy년 M월 d일 HH시 ')}"></div>
                                 <div>
                                     <input type="submit" value="저장하기" class="btn text-info">
-                                    <a th:href="@{|/board/list/detail/${id}|}" class="btn text-info">취소</a>
+                                    <a th:href="@{|/board/list/detail/${answer.board.id}|}" class="btn text-info">취소</a>
                                 </div>
                             </div>
                             </p>

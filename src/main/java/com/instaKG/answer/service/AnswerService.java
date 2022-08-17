@@ -33,6 +33,12 @@ public class AnswerService {
         this.answerRepository.save(answer);
     }
 
+    public void modify(Answer answer, String content, Boolean onOff){
+        answer.setContent(content);
+        answer.setReplyLike(onOff);
+        this.answerRepository.save(answer);
+    }
+
     public void delete(Answer answer){
         this.answerRepository.delete(answer);
     }
