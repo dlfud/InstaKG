@@ -137,13 +137,13 @@
                                                                 </svg>
                                                             </button>
                                                         </form>
-                                                        <img th:if="${image.fileName.contains('jpg')}"
-                                                             class="ratio ratio-1x1"
-                                                             th:src="'/uploadFiles/'+${image.fileName}" alt="img">
-                                                        <video th:unless="${image.fileName.contains('jpg')}"
-                                                               class="ratio ratio-1x1" controls
-                                                               th:src="'/uploadFiles/'+${image.fileName}"></video>
                                                     </span>
+                                                    <img th:if="${image.fileName.contains('jpg')}"
+                                                         class="ratio ratio-1x1"
+                                                         th:src="'/uploadFiles/'+${image.fileName}" alt="img">
+                                                    <video th:unless="${image.fileName.contains('jpg')}"
+                                                           class="ratio ratio-1x1" controls
+                                                           th:src="'/uploadFiles/'+${image.fileName}"></video>
                                                 </div>
                                             </div>
                                             <div class="swiper-button-next"></div>
@@ -219,6 +219,7 @@
           prevEl: ".swiper-button-prev",
         },
       });
+
 
 
 

@@ -41,7 +41,7 @@ public class AnswerController {
             return "board_detail";
         }
         this.answerService.create(board, answerForm.getContent());
-        return String.format("redirect:/board/detail/%s", id);
+        return String.format("redirect:/board/list/detail/%s", id);
     }
 
     @RequestMapping("/delete/{id}")
@@ -55,5 +55,12 @@ public class AnswerController {
     public String answerLike(@PathVariable("id") Long id){
         this.answerService.setReplyLike(id);
         return "redirect:/board/list";
+    }
+
+    @PostMapping("/detail/like/{id}")
+    public String answerDetailLike(@PathVariable("id") Long id){
+        Answer answer = this.answerService.getAnswer(id);
+        this.answerService.setReplyLike(id);
+        return String.format("redirect:/board/list/detail/%s", answer.getBoard().getId());
     }
 }

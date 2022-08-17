@@ -82,3 +82,37 @@
 }
 
 /* 팔로우 버튼 */
+
+/*좋아요 싫어요*/
+.like{
+background :url("/icon/like.png") no-repeat;
+border : none;
+cursor : pointer;
+}
+
+.unlike{
+background :url("/icon/unlike.png") no-repeat;
+border : none;
+cursor : pointer;
+}
+
+.icon-size{
+width : 1.5em;
+height:1.5em;
+}
+
+.comment{
+   position:relative;
+}
+
+.QuestionDetailCommentOverflow{
+  position: static;
+  height: 380px;
+  overflow:auto;
+  }
+
+.QuestionDetailImgStatic{
+position: static;
+height: 650px;
+overflow:auto;
+}
