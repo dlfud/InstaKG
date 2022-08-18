@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <link rel="stylesheet" th:href="@{/story.css}">
+    <link rel="stylesheet" th:href="@{/setprofile.css}">
+    <link rel="stylesheet" th:href="@{/profile.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
@@ -20,6 +22,7 @@
     <title>instarKG</title>
 </head>
 <body>
+<nav th:replace="navbar :: navbarFragment"></nav>
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 <th:block layout:fragment="content"></th:block>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
