@@ -26,8 +26,8 @@
                         </div>
                         <form th:action="@{|/comment/modify/${answer.id}|}" method="post">
                             <p class="description">
-                    <textarea name="content" class="form-control" rows="10"
-                              th:text="${answer.content}"></textarea>
+                            <textarea name="content" class="form-control" rows="10"
+                                      th:text="${answer.content}"></textarea>
                             </p>
                             <p class="post-time">
                             <div class="d-flex justify-content-between">

@@ -28,8 +28,14 @@ CREATE TABLE files(
     board_id BIGINT UNSIGNED NOT NULL
 );
 
+CREATE TABLE `backup`(
+    id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    file_name TEXT,
+    board_id BIGINT UNSIGNED NOT NULL
+);
 
 
 SELECT * FROM board;
 SELECT * FROM Answer;
 SELECT * FROM files;
+SELECT * FROM `backup`;
