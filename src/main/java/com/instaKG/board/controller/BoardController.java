@@ -3,23 +3,20 @@ package com.instaKG.board.controller;
 import com.instaKG.board.BoardForm;
 import com.instaKG.board.domain.Board;
 import com.instaKG.board.service.BoardService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 
 @Controller
 @RequestMapping("/board")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BoardController {
 
-    private BoardService boardService;
+    private final BoardService boardService;
 
     @RequestMapping("/list")
     public String board(Model model){
@@ -44,8 +41,14 @@ public class BoardController {
     }
 
 
-    @PostMapping("/like/{id}")
-    public String boardLike(@PathVariable("id") Long id){
+//    @PostMapping("/like/{id}")
+//    public String boardLike(@PathVariable("id") Long id){
+//        this.boardService.setLike(id);
+//        return "redirect:/board/list";
+//    }
+
+    @RequestMapping("/like")
+    public String boardLike(@RequestParam("id") Long id){
         this.boardService.setLike(id);
         return "redirect:/board/list";
     }

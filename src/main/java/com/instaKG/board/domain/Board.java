@@ -26,8 +26,7 @@ public class Board {
 
     private Boolean onOff;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private Boolean replyLike;
+    private Integer replyLike;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;

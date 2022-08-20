@@ -36,7 +36,7 @@ public class BoardService {
         board.setContent(content);
         board.setCreateDate(LocalDateTime.now());
         board.setModifyDate(LocalDateTime.now());
-        board.setReplyLike(false);
+        board.setReplyLike(0);
         this.boardRepository.save(board);
         return board;
     }
@@ -44,10 +44,10 @@ public class BoardService {
     public void setLike(Long boardId){
         Board board = boardRepository.findById(boardId).get();
 
-        if(board.getReplyLike() == true){
-            board.setReplyLike(false);
+        if(board.getReplyLike() == 0){
+            board.setReplyLike(1);
         }else{
-            board.setReplyLike(true);
+            board.setReplyLike(0);
         }
         this.boardRepository.save(board);
     }

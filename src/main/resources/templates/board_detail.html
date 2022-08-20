@@ -375,7 +375,7 @@
                     <hr>
 
 
-                    <a class="Modal-Nomal" href="javascript:move('/comment/modify/');">
+                    <a class="Modal-Nomal" href="javascript:moveAnswer('/comment/modify/');">
                         <div>
                             수정
                         </div>
@@ -402,7 +402,7 @@
                     삭제하시겠습니까?
                 </div>
                 <div class="modal-body text-center">
-                    <a class="Modal-Nomal" href="javascript:move('/comment/delete/');">
+                    <a class="Modal-Nomal" href="javascript:moveAnswer('/comment/delete/');">
                         <div>
                             확인
                         </div>
@@ -512,7 +512,20 @@ function shareTwitter(){
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
 
 
-//modal에 정보전달
+//setting modal에 정보전달
+$('#settingModal').on('show.bs.modal', function (e) {
+    var boardId = $(e.relatedTarget).data('id');
+    var boardContent = $(e.relatedTarget).data('content');
+	sessionStorage.setItem("board_id", boardId);
+	sessionStorage.setItem("board_content", boardContent);
+});
+
+function move(url){
+    location.href = url+sessionStorage.getItem("board_id");
+    sessionStorage.removeItem("board_id");
+}
+
+//Comment modal에 정보전달
 $('#exampleModal').on('show.bs.modal', function (e) {
     var answerId = $(e.relatedTarget).data('id');
     var answerContent = $(e.relatedTarget).data('content');
@@ -520,7 +533,7 @@ $('#exampleModal').on('show.bs.modal', function (e) {
 	sessionStorage.setItem("answer_content", answerContent);
 });
 
-function move(url){
+function moveAnswer(url){
     location.href = url+sessionStorage.getItem("answer_id");
     sessionStorage.removeItem("answer_id");
 }
