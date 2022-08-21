@@ -41,7 +41,7 @@ public class BoardService {
         return board;
     }
 
-    public void setLike(Long boardId){
+    public Integer setLike(Long boardId){
         Board board = boardRepository.findById(boardId).get();
 
         if(board.getReplyLike() == 0){
@@ -50,6 +50,8 @@ public class BoardService {
             board.setReplyLike(0);
         }
         this.boardRepository.save(board);
+
+        return board.getReplyLike();
     }
 
     public void delete(Board board){
