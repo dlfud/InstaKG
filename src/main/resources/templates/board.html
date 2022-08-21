@@ -96,9 +96,9 @@
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <!-- 좋아요 싫어요 -->
-                                                    <form th:action="@{|/board/like|}" method="post">
+<!--                                                    <form th:action="@{|/board/like|}" method="post">-->
                                                         <div th:if="${board.replyLike}">
-                                                            <a id="star-fill" th:data-id="${board.id}" href="javascript:" class="btn p-0 heart-click">
+                                                            <a th:data-id="${board.id}" href="javascript:" class="btn p-0 heart-click">
                                                                 <svg type="submit" xmlns="http://www.w3.org/2000/svg"
                                                                      width="1.5em"
                                                                      height="1.5em" fill="currentColor"
@@ -109,7 +109,7 @@
                                                             </a>
                                                         </div>
                                                         <div th:if="!${board.replyLike}">
-                                                            <a  id="star" th:data-id="${board.id}" href="javascript:" class="btn p-0 heart-click">
+                                                            <a th:data-id="${board.id}" href="javascript:" class="btn p-0 heart-click">
                                                                 <svg type="submit" xmlns="http://www.w3.org/2000/svg"
                                                                      width="1.5em"
                                                                      height="1.5em"
@@ -119,7 +119,7 @@
                                                                 </svg>
                                                             </a>
                                                         </div>
-                                                    </form>
+<!--                                                    </form>-->
                                                 </li>
                                                 <!-- 댓글로 이동 -->
                                                 <li class="list-inline-item ms-2">
@@ -560,11 +560,10 @@ $(function(){
 
 //ajax좋아요 싫어요
 $(".heart-click").click(function(){
-<!--    let no = $(this).attr('idx');-->
+    let no = $(".heart-click").data('id');
     console.log("heart-click");
 
     if($(this).children('svg').attr('class') == "bi bi-star"){
-        let no = $("#star").data("id");
         console.log("빈하트 클릭" + no);
 
         $.ajax({
@@ -582,7 +581,6 @@ $(".heart-click").click(function(){
         });
         $(this).html('<svg type="submit" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16"> <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/> </svg>');
     }else if($(this).children('svg').attr('class') == "bi bi-star-fill"){
-        let no = $("#star-fill").data("id");
         console.log("꽉찬하트 클릭" + no);
 
         $.ajax({
