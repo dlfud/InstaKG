@@ -22,6 +22,16 @@ CREATE TABLE answer (
     reply_like TINYINT NOT NULL DEFAULT 0
 );
 
+CREATE TABLE answer_comment (
+    id INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    content TEXT NOT NULL,
+    create_date DATETIME NOT NULL DEFAULT NOW(),
+    modify_date DATETIME DEFAULT NOW(),
+    board_id INT(11) UNSIGNED NOT NULL,
+    answer_id INT(11) UNSIGNED NOT NULL,
+    reply_like TINYINT NOT NULL DEFAULT 0
+);
+
 CREATE TABLE files(
     id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     file_name TEXT,
@@ -37,5 +47,6 @@ CREATE TABLE `backup`(
 
 SELECT * FROM board;
 SELECT * FROM Answer;
+SELECT * FROM answer_comment;
 SELECT * FROM files;
 SELECT * FROM `backup`;

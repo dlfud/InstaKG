@@ -42,8 +42,13 @@ public class BoardController {
 
 
     @PostMapping("/like/{id}")
-    @ResponseBody
     public String boardLike(@PathVariable("id") Long id){
+        this.boardService.setLike(id);
+        return "redirect:/board/list";
+    }
+
+    @RequestMapping("/like")
+    public String boardlike(@RequestParam("id") Long id){
         this.boardService.setLike(id);
         return "redirect:/board/list";
     }
