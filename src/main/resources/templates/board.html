@@ -595,9 +595,9 @@ function like(id){
 function commentLike(id){
     console.log(id);
     $.ajax({
-        url:,
-        type:'POST',
-        data:{
+        url : "/answer/list/like/"+id,
+        type : 'POST',
+        data : {
             id : id,
         }
     })
