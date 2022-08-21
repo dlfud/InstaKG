@@ -29,7 +29,7 @@ public class AnswerService {
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
         answer.setBoard(board);
-        answer.setReplyLike(false);
+        answer.setReplyLike(0);
         this.answerRepository.save(answer);
     }
 
@@ -42,13 +42,14 @@ public class AnswerService {
         this.answerRepository.delete(answer);
     }
 
-    public void setReplyLike(Long answerId){
+    public Integer setReplyLike(Long answerId){
         Answer answer = answerRepository.findById(answerId).get();
-        if(answer.getReplyLike() == true){
-            answer.setReplyLike(false);
+        if(answer.getReplyLike() == 1){
+            answer.setReplyLike(0);
         }else{
-            answer.setReplyLike(true);
+            answer.setReplyLike(1);
         }
         this.answerRepository.save(answer);
+        return answer.getReplyLike();
     }
 }

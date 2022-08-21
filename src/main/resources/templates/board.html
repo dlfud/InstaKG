@@ -194,7 +194,7 @@
                                                     <form th:action="@{|/answer/list/like/${answer.id}|}"
                                                           method="post">
                                                         <div th:if="${answer.replyLike}">
-                                                            <button class="btn pr-5 pb-0 pt-0 m-0">
+                                                            <button type="button" th:onclick="'javascript:commentLike('+${answer.id}+')'" class="btn pr-5 pb-0 pt-0 m-0">
                                                                 <svg type="submit"
                                                                      xmlns="http://www.w3.org/2000/svg"
                                                                      width="1em"
@@ -206,7 +206,7 @@
                                                             </button>
                                                         </div>
                                                         <div th:if="!${answer.replyLike}">
-                                                            <button class="btn pr-5 pb-0 pt-0 m-0">
+                                                            <button type="button" th:onclick="'javascript:commentLike('+${answer.id}+')'" class="btn pr-5 pb-0 pt-0 m-0">
                                                                 <svg type="submit"
                                                                      xmlns="http://www.w3.org/2000/svg"
                                                                      width="1em"
@@ -567,7 +567,7 @@ $(function(){
 })
 
 
-//ajax좋아요 싫어요
+//게시글 ajax 좋아요 싫어요
 function like(id){
     $.ajax ({
             url : "/board/like/"+id,
@@ -590,6 +590,25 @@ function like(id){
 }
 
 
+
+//댓글 ajax 좋아요 싫어요
+function commentLike(id){
+    console.log(id);
+    $.ajax({
+        url:,
+        type:'POST',
+        data:{
+            id : id,
+        }
+    })
+    .done(function (fragment){
+        if(fragment == 1){
+
+        }else{
+
+        }
+    });
+}
 
 </script>
 </html>

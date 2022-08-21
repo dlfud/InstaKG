@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -52,9 +53,10 @@ public class AnswerController {
     }
 
     @PostMapping("/list/like/{id}")
-    public String answerLike(@PathVariable("id") Long id){
-        this.answerService.setReplyLike(id);
-        return "redirect:/board/list";
+    @ResponseBody
+    public Integer answerLike(@PathVariable("id") Long id){
+        return this.answerService.setReplyLike(id);
+//        return "redirect:/board/list";
     }
 
     @PostMapping("/detail/like/{id}")

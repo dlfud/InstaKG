@@ -22,8 +22,7 @@ public class Answer {
 
     private LocalDateTime modifyDate;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private Boolean replyLike;
+    private Integer replyLike;
 
     @ManyToOne
     private Board board;
