@@ -83,7 +83,7 @@
                                 <div th:if="!${board.onOff}">
                                     <div class="card QuestionDetailCommentOverflow">
                                         <div class="card-body bg-white ">
-                                            <div th:each="answer : ${board.answerList}" class ="border-bottom my-2">
+                                            <div th:each="answer : ${board.answerList}" class="border-bottom my-2">
 
                                                 <div class="d-flex justify-content-between">
                                                     <div th:text="${answer.content}"></div>
@@ -100,10 +100,11 @@
                                                 <div class="d-flex justify-content-between">
                                                     <div th:text="${#temporals.format(answer.createDate, 'M월 d일')}"></div>
                                                     <!-- 좋아요 싫어요 -->
-                                                    <form th:action="@{|/answer/detail/like/${answer.id}|}"
-                                                          method="post">
-                                                        <div th:if="${answer.replyLike}">
-                                                            <button class="btn pr-5  pt-0 m-0">
+                                                    <div th:if="${answer.replyLike}">
+                                                        <button type="button"
+                                                                th:onclick="'javascript:commentLike('+${answer.id}+')'"
+                                                                class="btn pr-5  pt-0 m-0">
+                                                            <div th:id="'commentLike'+${answer.id}">
                                                                 <svg type="submit" xmlns="http://www.w3.org/2000/svg"
                                                                      width="1em"
                                                                      height="1em" fill="currentColor"
@@ -111,10 +112,14 @@
                                                                      viewBox="0 0 16 16">
                                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                                 </svg>
-                                                            </button>
-                                                        </div>
-                                                        <div th:if="!${answer.replyLike}">
-                                                            <button class="btn pr-5 pt-0 m-0">
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <div th:if="!${answer.replyLike}">
+                                                        <button type="button"
+                                                                th:onclick="'javascript:commentLike('+${answer.id}+')'"
+                                                                class="btn pr-5 pt-0 m-0">
+                                                            <div th:id="'commentLike'+${answer.id}">
                                                                 <svg type="submit" xmlns="http://www.w3.org/2000/svg"
                                                                      width="1em"
                                                                      height="1em"
@@ -122,9 +127,9 @@
                                                                      viewBox="0 0 16 16">
                                                                     <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
                                                                 </svg>
-                                                            </button>
-                                                        </div>
-                                                    </form>
+                                                            </div>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -143,10 +148,11 @@
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <!-- 좋아요 싫어요 -->
-                                                    <form th:action="@{|/board/detail/like/${board.id}|}"
-                                                          method="post">
-                                                        <div th:if="${board.replyLike}">
-                                                            <button class="btn p-0">
+                                                    <div th:if="${board.replyLike}">
+                                                        <button type="button"
+                                                                th:onclick="'javascript:like('+${board.id}+')'"
+                                                                class="btn p-0">
+                                                            <div th:id="'like'+${board.id}">
                                                                 <svg type="submit" xmlns="http://www.w3.org/2000/svg"
                                                                      width="1.5em"
                                                                      height="1.5em" fill="currentColor"
@@ -154,10 +160,14 @@
                                                                      viewBox="0 0 16 16">
                                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                                                                 </svg>
-                                                            </button>
-                                                        </div>
-                                                        <div th:if="!${board.replyLike}">
-                                                            <button class="btn p-0">
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <div th:if="!${board.replyLike}">
+                                                        <button type="button"
+                                                                th:onclick="'javascript:like('+${board.id}+')'"
+                                                                class="btn p-0">
+                                                            <div th:id="'like'+${board.id}">
                                                                 <svg type="submit" xmlns="http://www.w3.org/2000/svg"
                                                                      width="1.5em"
                                                                      height="1.5em"
@@ -165,9 +175,9 @@
                                                                      viewBox="0 0 16 16">
                                                                     <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
                                                                 </svg>
-                                                            </button>
-                                                        </div>
-                                                    </form>
+                                                            </div>
+                                                        </button>
+                                                    </div>
                                                 </li>
                                                 <!-- 댓글로 이동 -->
                                                 <li class="list-inline-item ms-2">
@@ -211,9 +221,11 @@
                                         <div class="position-relative comment-box">
                                             <div th:if="!${board.onOff}">
                                                 <form th:action="@{|/answer/create/detail/${board.id}|}" method="post">
-                                                    <input name="content" class="w-100 border-0 p-2" type="text" id="content"
+                                                    <input name="content" class="w-100 border-0 p-2" type="text"
+                                                           id="content"
                                                            placeholder="답글달기">
-                                                    <button type="submit" class="btn position-absolute btn-st fw-bold" disabled="true" id="post">
+                                                    <button type="submit" class="btn position-absolute btn-st fw-bold"
+                                                            disabled="true" id="post">
                                                         확인
                                                     </button>
                                                 </form>
@@ -222,7 +234,8 @@
                                                 <form th:action="@{|/answer/create/detail/${board.id}|}" method="post">
                                                     <input name="content" class="w-100 border-0 p-2" type="text"
                                                            placeholder="답글달기" disabled>
-                                                    <button type="submit" class="btn position-absolute btn-st fw-bold" disabled>
+                                                    <button type="submit" class="btn position-absolute btn-st fw-bold"
+                                                            disabled>
                                                         확인
                                                     </button>
                                                 </form>
@@ -526,6 +539,49 @@ $(function(){
 })
 
 
+
+//게시글 ajax 좋아요 싫어요
+function like(id){
+    $.ajax ({
+            url : "/board/like/"+id,
+            type : "POST",
+        })
+        .done(function (fragment) {
+            var result = "";
+            if(fragment == 1){
+                result =  "<div id=\"like"+id+"\">";
+                result += '<svg type="submit" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16"> <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
+                result += "</div>";
+            }
+            else{
+                result = "<div id=\"like"+id+"\">";
+                result += '<svg type="submit" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"> <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/> </svg>';
+                result += "</div>";
+            }
+            $('#like'+id).replaceWith(result);
+        });
+}
+
+
+
+//댓글 ajax 좋아요 싫어요
+function commentLike(id){
+    console.log(id);
+    $.ajax({
+        url : "/answer/list/like/"+id,
+        type : 'POST',
+        data : {
+            id : id,
+        }
+    })
+    .done(function (fragment){
+        if(fragment == 1){
+            $('#commentLike'+id).html('<svg type="submit" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16"> <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/> </svg>');
+        }else{
+            $('#commentLike'+id).html('<svg type="submit" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"> <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/> </svg>');
+        }
+    });
+}
 
 
 
