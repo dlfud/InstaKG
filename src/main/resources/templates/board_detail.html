@@ -6,7 +6,7 @@
 
         <!-- 상단 친구목록? 내용물 관련 -->
         <div class="mt-4"> <!-- 네비바와 거리띄우기 -->
-            <div class="main_container d-flex justify-content-center">
+            <div class="container d-flex justify-content-center">
                 <div class="col-9">
                     <div class="row">
                         <div class="col-8 p-0">
@@ -85,34 +85,23 @@
                                         <div class="card-body bg-white ">
                                             <div th:each="answer : ${board.answerList}" class ="border-bottom my-2">
 
-                                                <button type="button" class="btn form-inline pt-0 pb-10 "
-                                                        id="myModal"
-                                                        style="float:right;"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal" th:data-id="${answer.id}"
-                                                        th:data-content="${board.content}">
-                                                    <img src="https://img.icons8.com/stickers/344/ellipsis.png"
-                                                         width="20" height="20"
-                                                         alt="">
-                                                </button>
-                                                <div th:text="${answer.content}"></div>
-                                                <div class="d-flex justify-content-between align-items-center w-100" >
-                                                    <div class="pr-2"
-                                                         th:text="${#temporals.format(answer.createDate, 'M월 d일')}"></div>
-                                                    <div class="position-relative w-50">
-                                                        <form th:action="@{|/answer/create/detail/${board.id}/${answer.id}|}"
-                                                              method="post">
-                                                            <input name="content" class="w-100 border-0" type="text"
-                                                                   placeholder="답글달기">
-                                                            <button type="submit"
-                                                                    class="position-absolute btn-st fw-bold">
-                                                                확인
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div th:text="${answer.content}"></div>
+                                                    <button type="button" class="btn form-inline pt-0 pb-10"
+                                                            id="myModal"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal" th:data-id="${answer.id}"
+                                                            th:data-content="${board.content}">
+                                                        <img src="https://img.icons8.com/stickers/344/ellipsis.png"
+                                                             width="20" height="20"
+                                                             alt="">
+                                                    </button>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <div th:text="${#temporals.format(answer.createDate, 'M월 d일')}"></div>
                                                     <!-- 좋아요 싫어요 -->
                                                     <form th:action="@{|/answer/detail/like/${answer.id}|}"
-                                                          method="post" style="float:right;">
+                                                          method="post">
                                                         <div th:if="${answer.replyLike}">
                                                             <button class="btn pr-5  pt-0 m-0">
                                                                 <svg type="submit" xmlns="http://www.w3.org/2000/svg"
@@ -375,7 +364,7 @@
                     <hr>
 
 
-                    <a class="Modal-Nomal" href="javascript:moveAnswer('/comment/modify/');">
+                    <a class="Modal-Nomal" href="javascript:move('/comment/modify/');">
                         <div>
                             수정
                         </div>
@@ -402,7 +391,7 @@
                     삭제하시겠습니까?
                 </div>
                 <div class="modal-body text-center">
-                    <a class="Modal-Nomal" href="javascript:moveAnswer('/comment/delete/');">
+                    <a class="Modal-Nomal" href="javascript:move('/comment/delete/');">
                         <div>
                             확인
                         </div>
@@ -512,20 +501,7 @@ function shareTwitter(){
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
 
 
-//setting modal에 정보전달
-$('#settingModal').on('show.bs.modal', function (e) {
-    var boardId = $(e.relatedTarget).data('id');
-    var boardContent = $(e.relatedTarget).data('content');
-	sessionStorage.setItem("board_id", boardId);
-	sessionStorage.setItem("board_content", boardContent);
-});
-
-function move(url){
-    location.href = url+sessionStorage.getItem("board_id");
-    sessionStorage.removeItem("board_id");
-}
-
-//Comment modal에 정보전달
+//modal에 정보전달
 $('#exampleModal').on('show.bs.modal', function (e) {
     var answerId = $(e.relatedTarget).data('id');
     var answerContent = $(e.relatedTarget).data('content');
@@ -533,7 +509,7 @@ $('#exampleModal').on('show.bs.modal', function (e) {
 	sessionStorage.setItem("answer_content", answerContent);
 });
 
-function moveAnswer(url){
+function move(url){
     location.href = url+sessionStorage.getItem("answer_id");
     sessionStorage.removeItem("answer_id");
 }
