@@ -23,7 +23,7 @@ public class AnswerCommentSettingController {
     public String delete(@PathVariable("id") Long id){
         AnswerComment answerComment = this.answerCommentService.getAnswerComment(id);
         this.answerCommentService.delete(answerComment);
-        return String.format("redirect:/question/list/detail/%s",answerComment.getBoard().getId());
+        return String.format("redirect:/board/list/detail/%s",answerComment.getBoard().getId());
     }
 
     @GetMapping("/modify/{id}")
@@ -42,7 +42,7 @@ public class AnswerCommentSettingController {
             return "AnswerCommentModify";
         }
         this.answerCommentService.modify(answerComment, answerCommentForm.getContent());
-        return String.format("redirect:/question/list/detail/%s",answerComment.getBoard().getId());
+        return String.format("redirect:/board/list/detail/%s",answerComment.getBoard().getId());
     }
 
 }

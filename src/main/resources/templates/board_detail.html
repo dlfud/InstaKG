@@ -281,7 +281,7 @@
                                              th:text="${#temporals.format(board.createDate, 'M월 d일')}"></div>
                                         <div class="position-relative comment-box">
                                             <div th:if="!${board.onOff}">
-                                                <form th:action="@{|/answer/create/${board.id}|}" method="post">
+                                                <form th:action="@{|/answer/create/detail/${board.id}|}" method="post">
                                                     <input name="content" class="w-100 border-0 p-2" type="text"
                                                            placeholder="답글달기">
                                                     <button type="submit"
@@ -291,7 +291,7 @@
                                                 </form>
                                             </div>
                                             <div th:if="${board.onOff}">
-                                                <form th:action="@{|/answer/create/${board.id}|}" method="post">
+                                                <form th:action="@{|/answer/create/detail/${board.id}|}" method="post">
                                                     <input name="content" class="w-100 border-0 p-2" type="text"
                                                            placeholder="답글달기" disabled>
                                                     <button type="submit"
@@ -496,7 +496,7 @@
                     <hr>
 
 
-                    <a class="Modal-Nomal" href="javascript:answerCommentMove('/co/modify/');">
+                    <a class="Modal-Nomal" href="javascript:answerCommentMove('/answerComment/modify/');">
                         <div>
                             수정
                         </div>
@@ -523,7 +523,7 @@
                     삭제하시겠습니까?
                 </div>
                 <div class="modal-body text-center">
-                    <a class="Modal-Nomal" href="javascript:answerCommentMove('/co/delete/');">
+                    <a class="Modal-Nomal" href="javascript:answerCommentMove('/answerComment/delete/');">
                         <div>
                             확인
                         </div>
