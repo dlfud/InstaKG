@@ -26,9 +26,9 @@ public class AnswerComment {
 
     private Integer replyLike;
 
-
     @ManyToOne
     private Board board;
+
     @ManyToOne
     private Answer answer;
 

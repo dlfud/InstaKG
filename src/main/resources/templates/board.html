@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/html">
-<div layout:fragment="content">
+<div class="main_container" layout:fragment="content">
 
     <section class="main">
 
@@ -50,11 +50,13 @@
                                     <div class="card-header mb-3">
                                         <div class="d-flex flex-row align-items-center justify-content-between">
                                             <div class="d-flex align-items-center ms-2">
-                                                <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center border border-danger post-profile-photo me-3">
-                                                    <!-- 게시물 프로필사진 -->
-                                                    <img th:src="@{/img/basic-profile-image.png}"
-                                                         style="transform: scale(1.5); width: 100%; position: absolute; left: 0"/>
-                                                </div>
+                                                <a th:href="@{/question/profile}">
+                                                    <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center border border-danger post-profile-photo me-3">
+                                                        <!-- 게시물 프로필사진 -->
+                                                        <img th:src="@{/img/basic-profile-image.png}"
+                                                             style="transform: scale(1.5); width: 100%; position: absolute; left: 0"/>
+                                                    </div>
+                                                </a>
                                                 <div class="d-flex justify-content-start">
                                                     <span class="fw-bold">꼬솜우비</span>
                                                 </div>
@@ -615,6 +617,7 @@ function commentLike(id){
         }
     });
 }
+
 
 
 

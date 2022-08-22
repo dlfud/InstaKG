@@ -35,4 +35,11 @@ public class AnswerCommentController {
         this.answerCommentService.create(answer, board, answerCommentForm.getContent());
         return String.format("redirect:/board/list/detail/%s", boardId);
     }
+
+    @PostMapping("/comment/detail/like/{boardId}/{answerId}/{answerCommentsId}")
+    public String createCommentsAnswer(@PathVariable("boardId") Long boardId, @PathVariable("answerId") Long answerId, @PathVariable("answerCommentsId") Long answerCommentsId) {
+        this.answerCommentService.setLike(answerCommentsId);
+
+        return String.format("redirect:/question/list/detail/%s", boardId);
+    }
 }

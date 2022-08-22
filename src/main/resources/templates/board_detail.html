@@ -43,7 +43,7 @@
 
                         <div class="col-4 p-0 m-0 ">
                             <div class="card-header">
-                                <div class="d-flex flex-row align-items-center justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
                                     <div class="d-flex align-items-center ms-2">
                                         <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center border border-danger post-profile-photo me-3">
                                             <!-- 게시물 프로필사진 -->
@@ -53,18 +53,6 @@
                                         <div class="d-flex justify-content-start">
                                             <span class="fw-bold">꼬솜우비</span>
                                         </div>
-                                    </div>
-                                    <!--옵션(모달창)-->
-                                    <div>
-                                        <button type="button" class="btn float-right" id="MyModal2"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#settingModal" th:data-id="${board.id}"
-                                                th:data-content="${board.content}">
-                                            <img src="https://img.icons8.com/stickers/344/ellipsis.png"
-                                                 width="20"
-                                                 height="20"
-                                                 alt="">
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -83,22 +71,34 @@
                                 <div th:if="!${board.onOff}">
                                     <div class="card QuestionDetailCommentOverflow">
                                         <div class="card-body bg-white ">
-                                            <div th:each="answer : ${board.answerList}" class="border-bottom my-2">
-
-                                                <div class="d-flex justify-content-between">
-                                                    <div th:text="${answer.content}"></div>
-                                                    <button type="button" class="btn form-inline pt-0 pb-10"
-                                                            id="myModal"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#exampleModal" th:data-id="${answer.id}"
-                                                            th:data-content="${board.content}">
-                                                        <img src="https://img.icons8.com/stickers/344/ellipsis.png"
-                                                             width="20" height="20"
-                                                             alt="">
-                                                    </button>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <div th:text="${#temporals.format(answer.createDate, 'M월 d일')}"></div>
+                                            <div th:each="answer : ${board.answerList}"
+                                                 class="my-2">
+                                                <button type="button" class="btn form-inline pt-0 pb-10 "
+                                                        id="myModal"
+                                                        style="float:right;"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal" th:data-id="${answer.id}"
+                                                        th:data-content="${board.content}">
+                                                    <img src="https://img.icons8.com/stickers/344/ellipsis.png"
+                                                         width="20" height="20"
+                                                         alt="">
+                                                </button>
+                                                <div th:text="${answer.content}"></div>
+                                                <div class="d-flex justify-content-between align-items-center w-100 border-bottom">
+                                                    <div class="pr-2"
+                                                         th:text="${#temporals.format(answer.createDate, 'M/d')}"></div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <form class="d-flex"
+                                                              th:action="@{|/answer/create/detail/${board.id}/${answer.id}|}"
+                                                              method="post">
+                                                            <input name="content" class="ms-1 w-75 border-0"
+                                                                   type="text"
+                                                                   placeholder="답글달기">
+                                                            <button type="submit" class="btn-st fw-bold">
+                                                                확인
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                     <!-- 좋아요 싫어요 -->
                                                     <div th:if="${answer.replyLike}">
                                                         <button type="button"
@@ -131,6 +131,69 @@
                                                         </button>
                                                     </div>
                                                 </div>
+                                                <!-- 대댓글 시작 -->
+                                                <div class="ms-4">
+                                                    <!-- 댓글과 코멘트의 id가 같을때를 넣어주면 되는데...흠... -->
+                                                    <div th:each="answerComments : ${answer.answerCommentsList}"
+                                                         class="border-bottom my-2">
+                                                        <button type="button" class="btn form-inline pt-0 pb-10 "
+                                                                id="myModal2"
+                                                                style="float:right;"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#answerCommentModal"
+                                                                th:data-id="${answerComments.id}"
+                                                                th:data-content="${board.content}">
+                                                            <img src="https://img.icons8.com/stickers/344/ellipsis.png"
+                                                                 width="20" height="20"
+                                                                 alt="">
+                                                        </button>
+                                                        <!-- 대댓글 내용  -->
+                                                        <div th:text="${answerComments.content}"></div>
+                                                        <div>
+                                                            <!--between시 오른쪽에 공백이 생기기 때문에 width 크기를 고정시켜 위치를 잡아줌-->
+                                                            <div class="d-flex justify-content-between align-items-center"
+                                                                 style="width: 270px;">
+                                                                <div
+                                                                        th:text="${#temporals.format(answerComments.createDate, 'M/d')}">
+                                                                </div>
+                                                                <!-- 좋아요 싫어요 -->
+                                                                <form th:action="@{|/answer/comment/detail/like/${board.id}/${answer.id}/${answerComments.id}|}"
+                                                                      method="post" style="float:right;">
+                                                                    <div th:if="${answerComments.replyLike}">
+                                                                        <button class="btn pr-5 pt-0 m-0">
+                                                                            <svg type="submit"
+                                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                                                 width="1em"
+                                                                                 height="1em" fill="currentColor"
+                                                                                 class="bi bi-star-fill "
+                                                                                 viewBox="0 0 16 16">
+                                                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div th:if="!${answerComments.replyLike}">
+                                                                        <button class="btn pr-5 pt-0 m-0">
+                                                                            <svg type="submit"
+                                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                                                 width="1em"
+                                                                                 height="1em"
+                                                                                 fill="currentColor"
+                                                                                 class="bi bi-star"
+                                                                                 viewBox="0 0 16 16">
+                                                                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div th:if="${board.onOff}">
+                                                    <div class="card QuestionDetailCommentOverflow">
+                                                    </div>
+                                                </div>
+                                                <!-- 대댓글 끝-->
                                             </div>
                                         </div>
                                     </div>
@@ -140,8 +203,6 @@
                                     </div>
                                 </div>
                                 <!-- 댓글 끝 -->
-
-
                                 <div>
                                     <div class="card">
                                         <div class="d-flex justify-content-between ps-3 pe-3 pt-3 pb-1 bg-white">
@@ -217,25 +278,23 @@
                                         <!--내용 끝-->
                                         <div class="bg-white ps-3 pb-2"
                                              th:text="${#temporals.format(board.createDate, 'M월 d일')}"></div>
-
                                         <div class="position-relative comment-box">
                                             <div th:if="!${board.onOff}">
-                                                <form th:action="@{|/answer/create/detail/${board.id}|}" method="post">
+                                                <form th:action="@{|/answer/create/${board.id}|}" method="post">
                                                     <input name="content" class="w-100 border-0 p-2" type="text"
-                                                           id="content"
                                                            placeholder="답글달기">
-                                                    <button type="submit" class="btn position-absolute btn-st fw-bold"
-                                                            disabled="true" id="post">
+                                                    <button type="submit"
+                                                            class="btn position-absolute btn-st fw-bold">
                                                         확인
                                                     </button>
                                                 </form>
                                             </div>
                                             <div th:if="${board.onOff}">
-                                                <form th:action="@{|/answer/create/detail/${board.id}|}" method="post">
+                                                <form th:action="@{|/answer/create/${board.id}|}" method="post">
                                                     <input name="content" class="w-100 border-0 p-2" type="text"
                                                            placeholder="답글달기" disabled>
-                                                    <button type="submit" class="btn position-absolute btn-st fw-bold"
-                                                            disabled>
+                                                    <button type="submit"
+                                                            class="btn position-absolute btn-st fw-bold">
                                                         확인
                                                     </button>
                                                 </form>
@@ -420,6 +479,65 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="answerCommentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content ">
+                <div class="modal-body text-center">
+
+                    <a class="Modal-Nomal" href="" data-bs-target="#answerCommentModal2" data-bs-toggle="modal"
+                       data-bs-dismiss="modal">
+                        <div>
+                            삭제
+                        </div>
+                    </a>
+                    <hr>
+
+
+                    <a class="Modal-Nomal" href="javascript:answerCommentMove('/co/modify/');">
+                        <div>
+                            수정
+                        </div>
+                    </a>
+
+                    <hr>
+
+                    <a class="Modal-Nomal" href="" data-bs-dismiss="modal">
+                        <div>
+                            취소
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal 2 -->
+    <div class="modal fade" id="answerCommentModal2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+         tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    삭제하시겠습니까?
+                </div>
+                <div class="modal-body text-center">
+                    <a class="Modal-Nomal" href="javascript:answerCommentMove('/co/delete/');">
+                        <div>
+                            확인
+                        </div>
+                    </a>
+                    <hr>
+                    <a class="Modal-Nomal" href="" data-bs-dismiss="modal">
+                        <div>
+                            취소
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -539,6 +657,17 @@ $(function(){
 })
 
 
+//modal2에 정보전달
+$('#answerCommentModal').on('show.bs.modal', function (e) {
+    var answerCommentId = $(e.relatedTarget).data('id');
+	sessionStorage.setItem("answerComment_id", answerCommentId);
+});
+
+function answerCommentMove(url){
+    location.href = url+sessionStorage.getItem("answerComment_id");
+    sessionStorage.removeItem("answerComment_id");
+}
+
 
 //게시글 ajax 좋아요 싫어요
 function like(id){
@@ -582,6 +711,9 @@ function commentLike(id){
         }
     });
 }
+
+
+
 
 
 
