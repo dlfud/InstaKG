@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -36,10 +37,9 @@ public class AnswerCommentController {
         return String.format("redirect:/board/list/detail/%s", boardId);
     }
 
-    @PostMapping("/comment/detail/like/{boardId}/{answerId}/{answerCommentsId}")
-    public String createCommentsAnswer(@PathVariable("boardId") Long boardId, @PathVariable("answerId") Long answerId, @PathVariable("answerCommentsId") Long answerCommentsId) {
-        this.answerCommentService.setLike(answerCommentsId);
-
-        return String.format("redirect:/question/list/detail/%s", boardId);
+    @PostMapping("/comment/detail/like/{id}")
+    @ResponseBody
+    public Integer createCommentsAnswer(@PathVariable("id") Long id) {
+        return this.answerCommentService.setLike(id);
     }
 }

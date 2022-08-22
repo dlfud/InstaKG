@@ -26,7 +26,7 @@ public class AnswerCommentService {
         this.answerCommentRepository.save(answerComment);
     }
 
-    public void setLike(Long answerCommentsId) {
+    public Integer setLike(Long answerCommentsId) {
         AnswerComment answerComment = answerCommentRepository.findById(answerCommentsId).get();
         if(answerComment.getReplyLike()==1) {
             answerComment.setReplyLike(0);
@@ -34,6 +34,7 @@ public class AnswerCommentService {
             answerComment.setReplyLike(1);
         }
         this.answerCommentRepository.save(answerComment);
+        return answerComment.getReplyLike();
     }
 
     public AnswerComment getAnswerComment(Long id){
