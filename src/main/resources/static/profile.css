@@ -1,3 +1,6 @@
+html > body {
+    background-color: white;
+}
 /* 상단 네비바 프로필 크기관련 */
 .topbar-profile-photo{
     width: 1.5em;
@@ -73,21 +76,21 @@
 .boards {
     display: flex;
     justify-content: center;
-    margin-left: 140px;
 }
 .board_list{
-    width:70%;
+    width:100%;
 }
 
 .boards .board_list{
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
 }
 
 .boards .board_list li {
-    width: 293px;
-    height: 293px;
+    width: auto;
+    height: auto;
     margin: 0 26px 20px;
 }
 

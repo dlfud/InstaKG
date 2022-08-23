@@ -1,3 +1,11 @@
+.ModifyButton{
+ font-weight: bold;
+}
+
+.ModifyButton:hover{
+ color: #7401DF;
+}
+
 /*아이템들 수직 중앙 정렬화 */
 #data {
     padding: 10px;
